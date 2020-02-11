@@ -17,7 +17,7 @@ do
     echo "length not correct"
   elif ! [[ $pass =~ [0-9] ]]; then
     echo "does not contain a number"
-  elif ! [[ $pass =~ [A-Z] ]]; thenm
+  elif ! [[ $pass =~ [A-Z] ]]; then
     echo "does not contain a captail letter"
   else
     echo "Strong Password Accepted!"

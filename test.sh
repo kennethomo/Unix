@@ -3,11 +3,12 @@
 choice=abcd
 #echo $choice | rev
 length=${#choice}
+taco=""
 
-for (( i = $length - 1; i >= 0; i-- )); do
-  reverse = "$reverse${choice:$i:1}"
+for (( i=$length - 1; i >= 0; i-- )); do
+  taco="$taco${choice:$i:1}"
 done
-echo $reverse
+echo $taco
 
 
 exit 0
