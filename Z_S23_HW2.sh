@@ -6,25 +6,31 @@
 #Due Date: 2/24/2020
 
 #Password Number 5 on Assignment
-while :
-do
-  read -p "Please enter a Password: " pass
-  #pass=11111111111111
-  CORRECTLENGTH=8
-  length=${#pass} #the length of the password input
+pass=$1
+CORRECTLENGTH=8
+length=${#pass} #the length of the password input
 
-  if [ $length -lt $CORRECTLENGTH ]; then
-    echo "length not correct"
-  elif ! [[ $pass =~ [0-9] ]]; then
-    echo "does not contain a number"
-  elif ! [[ $pass =~ [A-Z] ]]; then
-    echo "does not contain a captail letter"
-  else
-    echo "Strong Password Accepted!"
-    break
-  fi
+if [ $length -lt $CORRECTLENGTH ]; then
+  echo "Weak Password"
+elif ! [[ $pass =~ [0-9] ]]; then
+  echo "Weak Password"
+elif ! [[ $pass =~ [A-Za-z] ]]; then
+  echo "Weak Password"
+else
+  echo "Strong Password Accepted!"
+  break
+fi
+
+#Number 6 on Assignment
+choice=$1
+#echo $choice | rev
+length=${#choice}
+taco=""
+
+for (( i=$length - 1; i >= 0; i-- )); do
+  taco="$taco${choice:$i:1}"
 done
-echo "Complete"
+echo $taco
 
 
 
