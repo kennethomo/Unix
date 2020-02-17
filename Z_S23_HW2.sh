@@ -5,6 +5,26 @@
 #Assignment Number: 2
 #Due Date: 2/24/2020
 
+#Number 2 on Assignment
+#CountFiles(){
+
+DIR=$1
+cd "$DIR" || exit
+files=0
+dirs=0
+
+for d in *;
+do
+    if [ -d "$d" ]; then
+        dirs=$((dirs+1))
+    else
+        file=$((file+1))
+    fi
+done
+echo "Files $file"
+echo "Directories $dirs"
+#}
+
 #Password Number 5 on Assignment
 pass=$1
 CORRECTLENGTH=8
@@ -23,7 +43,7 @@ fi
 
 #Number 6 on Assignment
 choice=$1
-#echo $choice | rev
+#echo $choice | rev #This could also work!
 length=${#choice}
 taco=""
 
