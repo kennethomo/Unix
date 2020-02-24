@@ -5,10 +5,23 @@
 #Assignment Number: 2
 #Due Date: 2/24/2020
 
+input=$1 #Global Varaible
+
+#User ID check Number 1 on Assignment
+UserIDCheck(){
+  root=501
+
+  if ! [[ $UID =~ $root ]]; then
+  	echo "You are not the root user"
+  else
+  	echo "You are the root user"
+  fi
+}
+
 #Number 2 on Assignment
 CountFiles(){
 
-DIR=$1 #input from terminal
+DIR=$input #input from terminal
 cd "$DIR" || exit #if not there exit
 files=0
 dirs=0
@@ -39,7 +52,7 @@ CountTXTFiles(){
 }
 #Password Number 5 on Assignment
 Password(){
-  pass=$1
+  pass=$input
   CORRECTLENGTH=8
   length=${#pass} #the length of the password input
 
@@ -56,24 +69,27 @@ Password(){
 }
 
 #Number 6 on Assignment
-Reverse(){
-  choice=$1
+ReverseDir(){
+  choice=$input
   #echo $choice | rev #This could also work!
   length=${#choice}
-  taco=""
+  local reverse=""
 
   for (( i=$length - 1; i >= 0; i-- )); do
-    taco="$taco${choice:$i:1}"
+    reverse="$reverse${choice:$i:1}"
   done
-  echo $taco
+  echo $reverse
 }
 
 echo "Opportunities to program scripts in UNIX"
+echo
 
+UserIDCheck
 CountTXTFiles
 Password
-Reverse
+ReverseDir
 
+echo
 echo "Implemented by Kenneth Omo and James - 2-24-2020"
 
 
