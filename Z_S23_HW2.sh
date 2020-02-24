@@ -20,20 +20,25 @@ UserIDCheck(){
 
 #Number 2 on Assignment
 CountFiles(){
-
-DIR=$input #input from terminal
-cd "$DIR" || exit #if not there exit
-files=0
+file=0
 dirs=0
 
-for d in *;
-do
-    if [ -d "$d" ]; then
-        dirs=$((dirs+1))
-    else
-        file=$((file+1))
-    fi
-done
+DIR=$input #input from terminal
+if [[ -d "$DIR" ]]; then
+  cd "$DIR"
+  for d in *;
+  do
+      if [ -d "$d" ]; then
+          dirs=$((dirs+1))
+      else
+          file=$((file+1))
+      fi
+  done
+  cd ..
+else
+  echo "Directory does not exist"
+fi
+
 echo "Files $file"
 echo "Directories $dirs"
 }
@@ -50,6 +55,13 @@ CountTXTFiles(){
   done
   echo "Number of .txt files $fileNumber"
 }
+#Number 4 on Assignment
+SubFolders(){
+  find -type d -empty > file
+  echo "List of all empty subfolders"
+  cat file
+}
+
 #Password Number 5 on Assignment
 Password(){
   pass=$input
@@ -84,19 +96,21 @@ ReverseDir(){
 echo "Opportunities to program scripts in UNIX"
 echo
 
+echo "1:"
 UserIDCheck
+echo "2:"
+CountFiles
+echo "3:"
 CountTXTFiles
+echo "4:"
+SubFolders
+echo "5:"
 Password
+echo "6:"
 ReverseDir
 
 echo
 echo "Implemented by Kenneth Omo and James - 2-24-2020"
-
-
-
-
-
-
 
 
 exit 0
