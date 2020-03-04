@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 /**
  * Name: James Steckler, Kenneth Omo          CS 4350 - Unix Systems Programming
  * Serial Number:
@@ -65,7 +66,7 @@ beginDW:
 
     nCrypt:
         newLine( 2 );
-        
+
         getMsg(message);
         printf("You entered %s\n", message);
         // It basically fails taking input here, I did something once where
@@ -125,7 +126,7 @@ void menu(char  *option){
             "Enter your choice:   ");
     scanf("%s", option);
     getchar();
-    
+
 }
 
 /***
@@ -357,17 +358,28 @@ void cloneStr(char *message, char clone[]){
 
 void concat(char str1[], char str2[], char newStr[], int size){
 
-    int index1 = 0, index2 = 0;
-    while(index1 < size) {
-        newStr[index1] = str1[index1];
+    printf("inconat\n");
+    int i, j =0;
+    for(i=strlen(str1);str2[j]!='\0';i++){
+      str1[i]=str2[j];
+      j++;
+    }
+    str1[i] = '\0';
+    /*
+    int index1, index2;
+
+    index1 = 0;
+    while(str1[index1] != '\0') {
         index1++;
     }
-
-    while(index2 < size) {
-        newStr[index1] = str2[index2];
+    index2 = 0;
+    while(str2[index2] != '\0') {
+        str1[index1] = str2[index2];
         index1++;
         index2++;
     }
+    str1[index1] = '\0';
+    */
 }
 
 /***
@@ -377,6 +389,7 @@ void concat(char str1[], char str2[], char newStr[], int size){
  * @param key - integer to generate encryption cipher
  */
 void encryption(char *message, int key){
+    printf("Here is the message   %s\n", message );
     getCipher(key);
     int totalChar = msgAnalysis(message);
 
@@ -392,16 +405,19 @@ void encryption(char *message, int key){
         index++;
         message++;
     }
+    printf("Here is the message   %s\n", message );
     encrypted[index] = '\0';
     printf("The Encrypted text is: \n");
     printf("%s", encrypted);
     newLine(2);
 
-    char concatenation[totalChar * 2];
-    concat(message, encrypted, concatenation, totalChar);
-    concatenation[totalChar * 2] = '\0';
+    //char concatenation[totalChar * 2];
+    //concat(message, encrypted, concatenation, totalChar);
+    //concatenation[totalChar * 2] = '\0';
 
-    printf("Concatenation of original and decrypted text:  %s", concatenation);
+
+
+    printf("Concatenation of original and decrypted text:  %s", message);
     newLine(3);
 }
 
