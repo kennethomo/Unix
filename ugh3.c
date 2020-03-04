@@ -28,7 +28,7 @@ int msgSpaces(char *); // space char in message
 void convLetter(char *); // convert letter char
 int msgAnalysis(char *); // message analysis
 void cloneStr(char *, char []); // clone string
-void concat(char [], char [], char [], int); // concatenate string
+void concat(char*, char*, char [], int); // concatenate string
 void encryption(char *, int); // encrypt message
 void decryption(char *, int); // decrypt message
 // Hardcoded
@@ -38,6 +38,7 @@ static char UPPER[] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"},
             LOWER[] = {"abcdefghijklmnopqrstuvwxyz"},
             DIGITS[] = {"0123456789"},
             SYMBOLS[] = {"!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{-}~"};
+            //SPACES[] = {' '};
 // Some fancy menu variables
 static char *ENCRYPT = "encrypt\0", *DECRYPT = "decrypt\0", *EXIT = "exit\0";
 // Max string length for decrypting
@@ -259,10 +260,11 @@ int msgDigits(char *message){
  * @return symbols - the number of characters that are symbols
  */
 int msgSymbols(char *message){
-    int symbols = 0;
+    int symbols = 0,
+        i;
 
     while (*message != '\0'){
-        for (int i = 0; i < 32; i++){
+        for ( i = 0; i < 32; i++){
             if (*message == SYMBOLS[i])
                 symbols++;
         }
@@ -273,21 +275,22 @@ int msgSymbols(char *message){
 /***
 * Analyses message to determine the number of whitespace
 * @param message - string that is being analysed
-* @return symbols - the number of characters that are symbols
+* @return spaces- the number of characters that are spaces
 */
-/*int msgSpaces(char *message){
-    int spaces = 0;
-
-    while (*message != '\0'){
-        for (int i = 0; i < 32; i++){
-            if (*message == ' ')
-                spaces++;
-        }
-        spaces++;
+int msgSpaces(char *message){
+    int spaces = 0,
+        i;
+    for ( i =0; message[i]!= '\0'; i++) {
+    //while (*message != '\0'){
+        //for (i = 0; i < 1; i++){
+        if (message[i] == 32)
+            spaces++;
     }
+        //spaces++;
+    
     return spaces;
 }
-*/
+
 /***
  * First copies original message into new character
  * Then converts characters in message to upper to lower, and vice-versa
@@ -295,8 +298,9 @@ int msgSymbols(char *message){
  * @param conversion - the variable to store the new, modified string
  */
 void convLetter(char *message){
+    int i;
     while (*message != '\0'){
-        for (int i = 0; i < 26; i++){
+        for (i = 0; i < 26; i++){
             if (*message == UPPER[i])
                 *message = LOWER[i];
             else if (*message == LOWER[i])
@@ -322,13 +326,13 @@ int msgAnalysis(char *message){
         lower = msgLower(message),
         digits = msgDigits(message),
         symbols = msgSymbols(message),
-        //spaces = msgSpaces(message),
-        total = upper + lower + digits + symbols;// + spaces;
+        spaces = msgSpaces(message),
+        total = upper + lower + digits + symbols + spaces;
     printf("Number of Upper:  %d \n", upper);
     printf("number of Lower:  %d \n", lower);
     printf("Number of Digits:  %d \n", digits);
     printf("Number of Symbols:  %d \n", symbols);
-    //printf("Number of Spaces:  %d \n", spaces);
+    printf("Number of Spaces:  %d \n", spaces);
     printf("Number of Characters in the message:  %d \n", total);
 
     char newMsg[STR_LEN];
@@ -355,18 +359,22 @@ void cloneStr(char *message, char clone[]){
     clone[index] = '\0';
 }
 
-void concat(char str1[], char str2[], char newStr[], int size){
+void concat(char *str1, char *str2, char *newStr, int size){
 
     int index1 = 0, index2 = 0;
     while(index1 < size) {
-        newStr[index1] = str1[index1];
+        *newStr = *str1;
         index1++;
+        str1++;
+        newStr++;
     }
-
+    printf("in between while loops, message is %s", str1);
     while(index2 < size) {
-        newStr[index1] = str2[index2];
+        *newStr = *str2;
         index1++;
         index2++;
+        str2++;
+        newStr++;
     }
 }
 
@@ -377,17 +385,20 @@ void concat(char str1[], char str2[], char newStr[], int size){
  * @param key - integer to generate encryption cipher
  */
 void encryption(char *message, int key){
-    getCipher(key);
+    getCipher(94-key);
     int totalChar = msgAnalysis(message);
-
     char encrypted[STR_LEN];
+    char cloner [STR_LEN];
     int index = 0;
+    
+    cloneStr(message,cloner); // ensure a fresh copy to concat
+    
     while (*message != '\0'){
         for (int i = 0; i < 94; i++){
             if (*message == glyphs[0][i])
                 encrypted[index] = glyphs[1][i];
-            if (*message == ' ')
-                encrypted[index] = ' ';
+            if (*message == 32)
+                encrypted[index] = 32;
         }
         index++;
         message++;
@@ -397,8 +408,8 @@ void encryption(char *message, int key){
     printf("%s", encrypted);
     newLine(2);
 
-    char concatenation[totalChar * 2];
-    concat(message, encrypted, concatenation, totalChar);
+    char concatenation[STR_LEN];
+    concat(cloner, encrypted, concatenation, totalChar);
     concatenation[totalChar * 2] = '\0';
 
     printf("Concatenation of original and decrypted text:  %s", concatenation);
@@ -412,13 +423,15 @@ void encryption(char *message, int key){
  * @param key - integer to generate decryption cipher
  */
 void decryption(char *message, int key){
-    getCipher(94-key);
+    getCipher(key);
     int totalChar = msgAnalysis(message);
-
     char decrypted[STR_LEN];
-    int index = 0;
+    char cloner [STR_LEN];
+    int index = 0,
+        i;
+    cloneStr(message,cloner);
     while (*message != '\0'){
-        for (int i = 0; i < 94; i++){
+        for (i = 0; i < 94; i++){
             if (*message == glyphs[0][i])
                 decrypted[index] = glyphs[1][i];
             if (*message == ' ')
@@ -432,8 +445,8 @@ void decryption(char *message, int key){
     printf("%s", decrypted);
     newLine(2);
 
-    char concatenation[totalChar * 2];
-    concat(message, decrypted, concatenation, totalChar);
+    char concatenation[STR_LEN];
+    concat(cloner, decrypted, concatenation, totalChar);
     concatenation[totalChar * 2] = '\0';
 
     printf("Concatenation of original and encrypted text:  %s", concatenation);
