@@ -1,3 +1,11 @@
+/*
+Name: Kenneth Omo, James Steckler
+Serial Number: 23, 30
+CS 4350--251-Unix Systems Programming
+Assignment Number: 4
+Due Date: 4/6/2020
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,9 +35,8 @@ int main(){
   char fileOut2Path[] = {"zp4out2.txt"};
 
 
+
   numLines = numLinesCmd();
-
-
 
   fileptr = fopen(fileInPath, "a+");
   printf("Enter String: \n");
