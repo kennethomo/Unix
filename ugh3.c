@@ -29,7 +29,7 @@ int msgSpaces(char *); // space char in message
 void convLetter(char *); // convert letter char
 int msgAnalysis(char *); // message analysis
 void cloneStr(char *, char []); // clone string
-void concat(char [], char [], char [], int); // concatenate string
+void concat(char *, char [], char [], int); // concatenate string
 void encryption(char *, int); // encrypt message
 void decryption(char *, int); // decrypt message
 // Hardcoded
@@ -356,15 +356,15 @@ void cloneStr(char *message, char clone[]){
     clone[index] = '\0';
 }
 
-void concat(char str1[], char str2[], char newStr[], int size){
+void concat(char *message, char str2[], char newStr[], int size){
 
     printf("inconat\n");
     int i, j =0;
-    for(i=strlen(str1);str2[j]!='\0';i++){
-      str1[i]=str2[j];
+    for(i=strlen(message);str2[j]!='\0';i++){
+      message[i]=str2[j];
       j++;
     }
-    str1[i] = '\0';
+    message[i] = '\0';
     /*
     int index1, index2;
 
@@ -412,7 +412,7 @@ void encryption(char *message, int key){
     newLine(2);
 
     //char concatenation[totalChar * 2];
-    //concat(message, encrypted, concatenation, totalChar);
+    concat(&message, encrypted, concatenation, totalChar);
     //concatenation[totalChar * 2] = '\0';
 
 
