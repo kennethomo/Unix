@@ -80,6 +80,7 @@ int main(){
   displayFile(fpOut2, fileOut2Path);
 
   system("rm *txt");//use system command to remove all txt files
+  printf("Implemented by Kenneth Omo and James Steckler\n April - 6 - 2020")
 
 
   return 0;
