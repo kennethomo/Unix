@@ -4,7 +4,17 @@ Serial Number: 23, 30
 CS 4350--251-Unix Systems Programming
 Assignment Number: 5
 Due Date: 4/20/2020
+
+
+
+MISSING:
+  11.
+  15.
+  16.
+  18.
+  DONT KNOW WHAT TO DO BECAUSE THIS IS STUPID
 */
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,6 +30,7 @@ void getProcessId();
 void getFileInfo();
 void renameFile();
 void removeFile();
+void chmodFile();
 
 int main() {
 
@@ -55,7 +66,7 @@ int main() {
 
   system("echo 6. The content of the file is  : $(cat zp5in-1.txt)");
 
-  system("echo 7. File mode changed $(chmod 770 zp5in-1.txt)");//change
+  chmodFile();
 
   system("echo 8. File information is : $(ls -l zp5in-1.txt)");
 
@@ -172,5 +183,18 @@ void removeFile(){
     printf("Something  Went Wrong!!!\n");
     perror("ERROR");
   }
+
+}
+
+void chmodFile(){
+
+  struct stat fileStat;
+  char filename[]="zp5in-1.txt";
+  if(stat(filename,&fileStat)==-1){
+    printf("Something went wrong!!\n");
+  }
+
+  chmod(filename, S_IRWXU | S_IRWXG);
+  printf("7. File mode is changed\n");
 
 }
