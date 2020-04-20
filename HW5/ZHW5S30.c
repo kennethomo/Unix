@@ -12,7 +12,7 @@ Due Date: 4/20/2020
  to access system, process, file, permisison, user and other potentially valuable information.  Almost all
  provided code was in part derived from provided slides, with reasonable applicaitons of pre-existing or self
  learned knowledge applied throughout to simplify and or streamline program flow.
- 
+
  Six functions were used in the support of the mostly procedural program flow and have short descriptions
  where applicable to describe any potentially confusing code bits.  However it is fairly straightforward, and
  should any questions arise do not hesitate to email jes270@txstate.edu or kjo15@txstate.edu
@@ -46,7 +46,7 @@ int main() {
   printf("System / File Manipulation Program\n\n");
   printf("1. File is created.\n");
   system("touch zp5in-1.txt");
-    
+
   struct stat fileStat;  // Struct to access file info
   char filename[]="zp5in-1.txt"; // filename variable
   if(stat(filename,&fileStat)==-1){
@@ -119,19 +119,19 @@ void getSysName(){
   if(hostname == -1){
     perror("gethostname");
   }
-    
+
   host_entry = gethostbyname(hostBuf);
-    
+
   if (host_entry == NULL){
       perror("gethostbyname");
   }
-  
+
   uname(&uts);
   printf("9. System name : %s\n", uts.sysname);
   printf("10.  Local host name : %s\n", hostBuf);
-  printf("11. Host name : ");
-  if (host_entry)
-      puts(host_entry->h_name);
+  printf("11.  Host name : %s\n", host_entry->h_name );
+  // if (host_entry)
+  //     puts(host_entry->h_name);
 }
 /**
  getProcessId - This function fulfills 12,13,14 of the rubric and displays the process and parent ID, and the
@@ -144,7 +144,7 @@ void getProcessId(){
   int which = PRIO_PROCESS;
   id_t pid;
   int ret;
-  
+
   process_id = getpid();
   p_process_id = getppid();
   pid = getpid();
