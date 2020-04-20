@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 /**
  * Name: James Steckler, Kenneth Omo          CS 4350 - Unix Systems Programming
  * Serial Number:
@@ -28,7 +29,11 @@ int msgSpaces(char *); // space char in message
 void convLetter(char *); // convert letter char
 int msgAnalysis(char *); // message analysis
 void cloneStr(char *, char []); // clone string
+<<<<<<< HEAD
 void concat(char*, char*, char [], int); // concatenate string
+=======
+void concat(char *, char [], char [], int); // concatenate string
+>>>>>>> 7af8e47486d0c5ea02eafe159d0ba1304b8cabfb
 void encryption(char *, int); // encrypt message
 void decryption(char *, int); // decrypt message
 // Hardcoded
@@ -66,7 +71,7 @@ beginDW:
 
     nCrypt:
         newLine( 2 );
-        
+
         getMsg(message);
         printf("You entered %s\n", message);
         // It basically fails taking input here, I did something once where
@@ -126,7 +131,7 @@ void menu(char  *option){
             "Enter your choice:   ");
     scanf("%s", option);
     getchar();
-    
+
 }
 
 /***
@@ -359,6 +364,7 @@ void cloneStr(char *message, char clone[]){
     clone[index] = '\0';
 }
 
+<<<<<<< HEAD
 void concat(char *str1, char *str2, char *newStr, int size){
 
     int index1 = 0, index2 = 0;
@@ -371,11 +377,34 @@ void concat(char *str1, char *str2, char *newStr, int size){
     printf("in between while loops, message is %s", str1);
     while(index2 < size) {
         *newStr = *str2;
+=======
+void concat(char *message, char str2[], char newStr[], int size){
+
+    printf("inconat\n");
+    int i, j =0;
+    for(i=strlen(message);str2[j]!='\0';i++){
+      message[i]=str2[j];
+      j++;
+    }
+    message[i] = '\0';
+    /*
+    int index1, index2;
+
+    index1 = 0;
+    while(str1[index1] != '\0') {
+        index1++;
+    }
+    index2 = 0;
+    while(str2[index2] != '\0') {
+        str1[index1] = str2[index2];
+>>>>>>> 7af8e47486d0c5ea02eafe159d0ba1304b8cabfb
         index1++;
         index2++;
         str2++;
         newStr++;
     }
+    str1[index1] = '\0';
+    */
 }
 
 /***
@@ -385,7 +414,12 @@ void concat(char *str1, char *str2, char *newStr, int size){
  * @param key - integer to generate encryption cipher
  */
 void encryption(char *message, int key){
+<<<<<<< HEAD
     getCipher(94-key);
+=======
+    printf("Here is the message   %s\n", message );
+    getCipher(key);
+>>>>>>> 7af8e47486d0c5ea02eafe159d0ba1304b8cabfb
     int totalChar = msgAnalysis(message);
     char encrypted[STR_LEN];
     char cloner [STR_LEN];
@@ -403,16 +437,25 @@ void encryption(char *message, int key){
         index++;
         message++;
     }
+    printf("Here is the message   %s\n", message );
     encrypted[index] = '\0';
     printf("The Encrypted text is: \n");
     printf("%s", encrypted);
     newLine(2);
 
+<<<<<<< HEAD
     char concatenation[STR_LEN];
     concat(cloner, encrypted, concatenation, totalChar);
     concatenation[totalChar * 2] = '\0';
+=======
+    //char concatenation[totalChar * 2];
+    concat(&message, encrypted, concatenation, totalChar);
+    //concatenation[totalChar * 2] = '\0';
 
-    printf("Concatenation of original and decrypted text:  %s", concatenation);
+
+>>>>>>> 7af8e47486d0c5ea02eafe159d0ba1304b8cabfb
+
+    printf("Concatenation of original and decrypted text:  %s", message);
     newLine(3);
 }
 

@@ -129,9 +129,7 @@ void getSysName(){
   uname(&uts);
   printf("9. System name : %s\n", uts.sysname);
   printf("10.  Local host name : %s\n", hostBuf);
-  printf("11. Host name : ");
-  if (host_entry)
-      puts(host_entry->h_name);
+  printf("11.  Host name : %s\n", host_entry->h_name);
 }
 /**
  getProcessId - This function fulfills 12,13,14 of the rubric and displays the process and parent ID, and the
